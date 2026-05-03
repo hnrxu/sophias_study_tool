@@ -34,7 +34,7 @@ const Dashboard = ({session}) => {
     const [openFolder, setOpenFolder] = useState<string | null>(null)
     const [audioFiles, setAudioFiles] = useState<any[]>([])
     const [asmrFiles, setAsmrFiles] = useState<any[]>([])
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(false);
 
 
 
