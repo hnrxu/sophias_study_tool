@@ -8,8 +8,8 @@ import Landing from './components/Landing';
 import { motion } from 'framer-motion';
 
 function App() {
-    const [session, setSession] = useState(null);
-    const [theme, setTheme] = useState('theme-neural');
+    const [session, setSession] = useState<any>(null);
+    const [theme] = useState('theme-neural');
     const [showLanding, setShowLanding] = useState(true);
     const [showLogin, setShowLogin] = useState(false);
 

@@ -12,31 +12,29 @@ const modes = ['chat', 'flashcards', 'audio notes']
 
 const Dashboard = ({session}) => {
 
-    const [systems, setSystems] = useState([]);
+    const [systems, setSystems] = useState<any[]>([]);
     const [systemName, setSystemName] = useState("");
-    const [selectedSystem, setSelectedSystem] = useState(undefined)
+    const [selectedSystem, setSelectedSystem] = useState<any>(undefined)
     const [query, setQuery] = useState("");
     const [userQuery, setUserQuery] = useState("");
-    const [selectedFiles, setSelectedFiles] = useState([]);
+    const [selectedFiles, setSelectedFiles] = useState<any[]>([]);
     const [response, setResponse] = useState("");
     const [sources, setSources] = useState<{url: string, path: string, fileName: string}[]>([])
     const [mode, setMode] = useState('chat');
     const [prevMode, setPrevMode] = useState('chat');
     const [systemFiles, setSystemFiles] = useState<{url: string, path: string, fileName: string, isDirectFile: boolean}[]>([]);
-    const [decks, setDecks] = useState([]);
+    const [decks, setDecks] = useState<any[]>([]);
     const [showModal, setShowModal] = useState(false);
     const [showSystemSettings, setShowSystemSettings] = useState(false);
-    const [renamingSystem, setRenamingSystem] = useState(null)
+    const [renamingSystem, setRenamingSystem] = useState<any[]>(null)
     const [renameValue, setRenameValue] = useState("")
     const [fileViewerIndex, setFileViewerIndex] = useState<number | null>(null)
     const [showUploadModal, setShowUploadModal] = useState(false)
     const [showPdfPanel, setShowPdfPanel] = useState(false);
     const [openFolder, setOpenFolder] = useState<string | null>(null)
-    const [audioFiles, setAudioFiles] = useState([])
-    const [asmrFiles, setAsmrFiles] = useState([])
+    const [audioFiles, setAudioFiles] = useState<any[]>([])
+    const [asmrFiles, setAsmrFiles] = useState<any[]>([])
     const [isLoading, setIsLoading] = useState(false)
-    const [animKey, setAnimKey] = useState(0)
-    const [showLanding, setShowLanding] = useState(true)
 
 
 
@@ -137,7 +135,7 @@ const Dashboard = ({session}) => {
         setResponse('')
         setUserQuery(query)
         setQuery('')
-        setAnimKey(k => k + 1)
+      
         setPrevMode(mode)
         setMode('chat')
 
