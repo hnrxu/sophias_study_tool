@@ -1,0 +1,125 @@
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg);
+    font-family: var(--main-font);
+}
+
+.card {
+    background: var(--bg3);
+    border: 1px solid var(--accent-dark);
+    border-left: 1px solid var(--accent-light);
+    border-top: 1px solid var(--accent-light);
+    border-radius: 20px;
+    padding: 2rem 2.5rem;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    box-shadow: var(--glow-purple-outer), var(--glow-purple-inner);
+}
+
+.card {
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { box-shadow: var(--glow-purple-outer), var(--glow-purple-inner); }
+  50% { box-shadow: var(--glow-purple-strong) }
+}
+
+.title {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: white;
+    text-align: center;
+    text-shadow: 0 0 10px var(--text-title);
+    margin: 0;
+}
+
+.tabs {
+    display: flex;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid var(--accent-dark);
+}
+
+.tab, .tabActive {
+    flex: 1;
+    padding: 0.5rem;
+    font-size: 0.85rem;
+    font-family: var(--main-font);
+    border: none;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.tab {
+    background: transparent;
+    color: var(--accent-dark);
+}
+
+.tabActive {
+    background: var(--accent-dark);
+    color: white;
+    box-shadow: var(--glow-accent-dark-inner);
+}
+
+.fields {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.input {
+    width: 100%;
+    padding: 0.65rem 1rem;
+    font-size: 0.9rem;
+    font-family: var(--main-font);
+    border-radius: 10px;
+    border: 1px solid var(--accent-dark);
+    border-top: 1px solid var(--accent);
+    border-left: 1px solid var(--accent);
+    background: var(--bg);
+    color: white;
+    outline: none;
+    box-sizing: border-box;
+    box-shadow: var(--glow-dark-outer), var(--glow-dark-inner);
+    transition: border-color 0.15s;
+}
+
+.input::placeholder {
+    color: var(--accent-dark);
+}
+
+.input:focus {
+    border-color: var(--accent-light);
+}
+
+.error {
+    font-size: 0.8rem;
+    color: #ff6b9d;
+    text-align: center;
+    margin: 0;
+}
+
+.submit {
+    width: 100%;
+    padding: 0.7rem;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: var(--main-font);
+    border-radius: 10px;
+    border: none;
+    background: var(--accent);
+    color: var(--bg);
+    cursor: pointer;
+    box-shadow: var(--glow-purple-outer), var(--glow-purple-inner);
+    transition: opacity 0.15s;
+}
+
+.submit:hover {
+    opacity: 0.85;
+}

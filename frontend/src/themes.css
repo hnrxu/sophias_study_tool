@@ -1,0 +1,94 @@
+.theme-neural {
+    /* Core backgrounds */
+    --bg: #020617; 
+    --bg2:rgb(16, 4, 48); 
+    --bg3:rgb(4, 5, 48);    
+    --bg4:rgb(38, 11, 135);                           /* deep navy-black */
+    --sidebar-bg: #020617;
+    --card-bg: #0b1220;           /* slightly lifted surface */
+    --input-bg: #0f172a;
+
+    /* Accents (AI glow) */
+    --accent: #8944ff;    
+    --accent-light: #ab3aed;            /* purple */
+    --accent-secondary: #22d3eec2;  /* cyan */
+    --accent-dark: #5b4fff;
+    --accent-dark2: #1d5dff;
+    
+
+    /* Text */
+    --text-title: #ac39ff;  /* cyan */
+    --text-title2: #7268ff;
+    --text-primary: #e2e8f0;      /* soft white */
+    --text-secondary: #94a3b8;    /* muted */
+    --text-dim: #64748b;
+
+    /* Borders & surfaces */
+    --border: rgba(148, 163, 184, 0.15);
+    --border-strong: rgba(148, 163, 184, 0.3);
+
+    /* Glow effects */
+    --glow-purple: 0 0 20px rgba(124, 58, 237, 0.35);
+    --glow-cyan: 0 0 20px rgba(34, 211, 238, 0.35);
+    --glow-dark: 0 0 20px #5144ff88;
+    --glow-top: 0 -8px 20px rgba(34, 211, 238, 0.35);
+    --glow-bottom: 0 8px 20px rgba(34, 211, 238, 0.35);
+    --glow-left: -8px 0 20px rgba(34, 211, 238, 0.35);
+    --glow-right: 8px 0 20px rgba(34, 211, 238, 0.35);
+    --glow-outer: 0 0 6px rgba(34, 211, 238, 0.4), 0 0 12px rgba(34, 211, 238, 0.2);
+    --glow-inner: inset 0 0 6px rgba(34, 211, 238, 0.4), inset 0 0 12px rgba(34, 211, 238, 0.2);
+    --glow-dark-outer: 0 0 6px rgba(43, 43, 255, 0.549), 0 0 12px rgba(34, 211, 238, 0.2);
+    --glow-dark-inner: inset 0 0 6px rgba(45, 55, 255, 0.69), inset 0 0 12px rgba(34, 211, 238, 0.2);
+    --glow-purple-outer: 0 0 6px rgba(124, 58, 237, 0.6), 0 0 12px rgba(124, 58, 237, 0.3);
+    --glow-purple-inner: inset 0 0 6px rgba(124, 58, 237, 0.6), inset 0 0 12px rgba(124, 58, 237, 0.3);
+    --glow-accent-dark-outer: 0 0 6px rgba(91, 79, 255, 0.6), 0 0 12px rgba(91, 79, 255, 0.3);
+    --glow-accent-dark-inner: inset 0 0 6px rgba(91, 79, 255, 0.6), inset 0 0 12px rgba(91, 79, 255, 0.3);
+
+
+    --purple-glow-1: rgba(124, 58, 237, 0.8);
+    --purple-glow-2: rgba(124, 58, 237, 0.5);
+    --cyan-glow-1: rgba(34, 211, 238, 0.8);
+    --cyan-glow-2: rgba(34, 211, 238, 0.5);
+    --dark-blue-glow-1: rgba(37, 99, 235, 0.8);
+    --dark-blue-glow-2: rgba(37, 99, 235, 0.5);
+
+    --glow-purple-strong: 0 0 12px var(--purple-glow-1), 0 0 24px var(--purple-glow-2),
+                        inset 0 0 12px var(--purple-glow-1), inset 0 0 24px var(--purple-glow-2);
+
+    --glow-cyan-strong: 0 0 12px var(--cyan-glow-1), 0 0 24px var(--cyan-glow-2),
+                        inset 0 0 12px var(--cyan-glow-1), inset 0 0 24px var(--cyan-glow-2);
+
+
+    --glow-dark-blue-strong: 0 0 12px var(--dark-blue-glow-1), 0 0 24px var(--dark-blue-glow-2),
+                            inset 0 0 12px var(--dark-blue-glow-1), inset 0 0 24px var(--dark-blue-glow-2);
+    
+    --glow-accent-dark-strong: 0 0 12px rgba(91, 79, 255, 0.8), 0 0 24px rgba(91, 79, 255, 0.5),
+                            inset 0 0 12px rgba(91, 79, 255, 0.8), inset 0 0 24px rgba(91, 79, 255, 0.5);
+
+
+    /* Radius + layout */
+    --border-radius: 12px;
+    --border-width: 1px;
+
+    /* Fonts */
+    --font-heading: "Inter", system-ui, sans-serif;
+    --font-body: "Inter", system-ui, sans-serif;
+
+    /* Messages (chat UI) */
+    --msg-user-bg: linear-gradient(135deg, #7c3aed, #4039c8);
+    --msg-user-text: #ffffff;
+
+    --msg-bot-bg: #0b1220;
+    --msg-bot-text: #e2e8f0;
+
+    /* Buttons */
+    --send-btn-bg: linear-gradient(135deg, #7c3aed, #2222ee);
+    --send-btn-text: #ffffff;
+
+    /* Hover states */
+    --hover-bg: rgba(124, 58, 237, 0.08);
+    --active-bg: rgba(124, 58, 237, 0.15);
+
+    --main-font: "Space Grotesk";
+}
+
