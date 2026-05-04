@@ -120,7 +120,7 @@ const Dashboard = ({session}) => {
         formData.append('systemId', systemId);
         formData.append('userId', session.user.id);
 
-        const response = await fetch('sophiasstudytool-production.up.railway.app/upload', {
+        const response = await fetch('https://sophiasstudytool-production.up.railway.app/upload', {
             method: 'POST',
             body: formData
         })
@@ -140,7 +140,7 @@ const Dashboard = ({session}) => {
         setMode('chat')
 
         try {
-            const response = await fetch('sophiasstudytool-production.up.railway.app/search', {
+            const response = await fetch('https://sophiasstudytool-production.up.railway.app/search', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ systemId: systemId, query: query, userId: session.user.id })

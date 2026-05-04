@@ -21,7 +21,7 @@ const Login = () => {
     return (
         <div className={styles.wrapper}>
             <div className={styles.card}>
-                <h2 className={styles.title}> studyspace</h2>
+                <h2 className={styles.title}> studysensei </h2>
                 <div className={styles.tabs}>
                     <button
                         className={mode === 'login' ? styles.tabActive : styles.tab}

@@ -31,7 +31,7 @@ const Landing = ({ onEnter, loggedIn }: { onEnter: () => void, loggedIn: boolean
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.3, duration: 0.6 }}
                 >
-                    studyspace
+                    studysensei
                 </motion.h1>
 
                 <motion.p
