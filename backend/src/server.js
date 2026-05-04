@@ -18,7 +18,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-  origin: "https://sophias-study-tool.vercel.app/",
+  origin: "https://sophias-study-tool.vercel.app",
   credentials: true
 }));
 
