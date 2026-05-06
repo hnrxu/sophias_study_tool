@@ -536,9 +536,8 @@
 }
 
 .editCardBtn {
-  position: absolute;
-  top: 10px;
-  right: 12px;
+
+
   background: none;
   border: 1px solid var(--accent-dark);
   border-radius: 6px;
@@ -548,6 +547,7 @@
   cursor: pointer;
   font-family: var(--main-font);
   transition: background-color 0.2s ease, color 0.2s ease;
+  display: flex; align-items: center; gap: 4px;
 }
 
 .editCardBtn:hover {
@@ -561,6 +561,33 @@ textarea.modalInput {
   min-height: 80px;
   line-height: 1.5;
   border-radius: 12px;
+}
+
+.cardBtns {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  display: flex;
+  gap: 6px;
+}
+
+.deleteCardBtn {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: none;
+  border: 1px solid var(--accent-light);
+  border-radius: 6px;
+  color: var(--accent-light);
+  font-size: 11px;
+  padding: 3px 8px;
+  cursor: pointer;
+  font-family: var(--main-font);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.deleteCardBtn:hover {
+  background: rgba(231, 76, 60, 0.15);
 }
 
 

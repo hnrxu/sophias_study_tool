@@ -2,6 +2,7 @@ import { useState, useRef, useEffect, useCallback } from "react"
 import styles from './index.module.css'
 import { supabase } from "../../sbClient"
 import { Pen } from "lucide-react"
+import { Trash2 } from "lucide-react";
 
 type StudyMode = 'simple' | 'spaced' | 'default'
 
@@ -245,6 +246,25 @@ const Flashcards = ({ decks, session, selectedSystem, onDecksChanged }) => {
     setShowEditCardModal(false)
   }
 
+
+  const handleDeleteCard = async () => {
+    if (!selectedDeck) return
+    const card = queue[currentIndex]
+    await supabase.from('flashcards').delete().eq('id', card.id)
+    const updatedDeck = {
+        ...selectedDeck,
+        flashcards: selectedDeck.flashcards.filter((c: any) => c.id !== card.id)
+    }
+    setSelectedDeck(updatedDeck)
+    ;(['default', 'simple', 'spaced'] as StudyMode[]).forEach(m => {
+        const key = modeKey(selectedDeck.id, m)
+        delete modeStateRef.current[key]
+        initModeStateIfNeeded(updatedDeck, m)
+    })
+    setModeStateVersion(v => v + 1)
+    await onDecksChanged()
+    }
+
   const sm2 = (card: any, score: number) => {
     const easiness = Math.max(1.3, card.easiness + 0.1 - (5 - score) * 0.08)
     let interval
@@ -407,17 +427,18 @@ const Flashcards = ({ decks, session, selectedSystem, onDecksChanged }) => {
               >
                 <p>{i === currentIndex && flipped ? card.answer : card.question}</p>
                 {i === currentIndex && (
-                  <>
-                    <button
-                      className={styles.editCardBtn}
-                      onClick={e => { e.stopPropagation(); openEditModal() }}
-                    >
-                      edit <Pen size={10}/>
-                    </button>
-                    <span className={styles.flipHint}>{flipped ? 'answer' : 'question'} — click to flip</span>
-                    
-                  </>
-                )}
+                    <>
+                        <div className={styles.cardBtns}>
+                        <button className={styles.editCardBtn} onClick={e => { e.stopPropagation(); openEditModal() }}>
+                            edit <Pen size={10} />
+                        </button>
+                        <button className={styles.deleteCardBtn} onClick={e => { e.stopPropagation(); handleDeleteCard() }}>
+                            delete <Trash2 size={10} />
+                        </button>
+                        </div>
+                        <span className={styles.flipHint}>{flipped ? 'answer' : 'question'} — click to flip</span>
+                    </>
+                    )}
               </div>
             ))}
           </div>
