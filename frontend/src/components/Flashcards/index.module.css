@@ -1,5 +1,5 @@
 .flashcardsPage {
-  padding: 16px;
+  padding: 10px;
   overflow-y: auto;
   height: 100%;
   display: flex;
@@ -131,7 +131,7 @@
   gap: 24px;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
-  padding: 40px 38%;
+  padding: 20px 38%;
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
   mask-image: linear-gradient(to right, transparent 0%, black 22%, black 78%, transparent 100%);
@@ -231,7 +231,7 @@
 
 .modeBar {
   display: flex;
-  margin-bottom: 16px;
+
   width: fit-content;
   background: var(--bg3);
   border-radius: 8px;
@@ -509,7 +509,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  max-height: 30px;
+  height: 30px;
   padding: 0px 12px;
   font-size: 12px;
   border: 1px solid var(--accent-dark);
@@ -591,3 +591,41 @@ textarea.modalInput {
 }
 
 
+.searchRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 auto 8px auto;
+  justify-content: center;
+  padding-top: 25px;
+}
+
+.searchInput {
+  width: 300px;
+  padding: 6px 14px;
+  font-size: 12px;
+  border-radius: 20px;
+  outline: none;
+  background: var(--bg);
+  border: 1px solid var(--accent-dark);
+
+  color: white;
+  font-family: var(--main-font);
+  box-shadow: var(--glow-dark-outer), var(--glow-dark-inner);
+}
+
+.searchMeta {
+  font-size: 11px;
+  color: var(--accent);
+  white-space: nowrap;
+  font-family: var(--main-font);
+}
+
+
+.headingSidebar {
+    display: flex;
+    
+    align-items: center;
+    gap: 20px
+}
+ 

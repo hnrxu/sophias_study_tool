@@ -48,6 +48,9 @@ const Flashcards = ({ decks, session, selectedSystem, onDecksChanged }) => {
   const scrollEndTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const isProgrammaticScrollRef = useRef(false)
 
+  const [searchQuery, setSearchQuery] = useState("")
+  const [searchResult, setSearchResult] = useState<number | null>(null)
+
   const modeKey = (deckId: string | number, mode: StudyMode) => `${deckId}__${mode}`
 
   const getModeState = useCallback((deckId: string | number, mode: StudyMode): ModeState => {
@@ -146,7 +149,7 @@ const Flashcards = ({ decks, session, selectedSystem, onDecksChanged }) => {
     setModeStateVersion(v => v + 1)
   }
 
-  const closeDeck = () => setSelectedDeck(null)
+  const closeDeck = () => { setSelectedDeck(null); setSearchQuery(""); setSearchResult(null) }
 
   const switchMode = (mode: StudyMode) => {
     if (!selectedDeck) return
@@ -218,51 +221,63 @@ const Flashcards = ({ decks, session, selectedSystem, onDecksChanged }) => {
     setShowEditCardModal(true)
   }
 
-  const handleEditCard = async () => {
-    if (!editQuestion.trim() || !editAnswer.trim() || !selectedDeck) return
-    const card = queue[currentIndex]
-    const { error } = await supabase
-      .from('flashcards')
-      .update({ question: editQuestion.trim(), answer: editAnswer.trim() })
-      .eq('id', card.id)
-    if (!error) {
-      const updatedCard = { ...card, question: editQuestion.trim(), answer: editAnswer.trim() }
-      const updatedDeck = {
-        ...selectedDeck,
-        flashcards: selectedDeck.flashcards.map((c: any) => c.id === card.id ? updatedCard : c)
-      }
-      setSelectedDeck(updatedDeck)
-      ;(['default', 'simple', 'spaced'] as StudyMode[]).forEach(m => {
-        const key = modeKey(selectedDeck.id, m)
-        if (modeStateRef.current[key]) {
-          modeStateRef.current[key].queue = modeStateRef.current[key].queue.map(
-            (c: any) => c.id === card.id ? updatedCard : c
-          )
+    const handleEditCard = async () => {
+        if (!editQuestion.trim() || !editAnswer.trim() || !selectedDeck) return
+        const card = queue[currentIndex]
+        const { error } = await supabase
+        .from('flashcards')
+        .update({ question: editQuestion.trim(), answer: editAnswer.trim() })
+        .eq('id', card.id)
+        if (!error) {
+        const updatedCard = { ...card, question: editQuestion.trim(), answer: editAnswer.trim() }
+        const updatedDeck = {
+            ...selectedDeck,
+            flashcards: selectedDeck.flashcards.map((c: any) => c.id === card.id ? updatedCard : c)
         }
-      })
-      setModeStateVersion(v => v + 1)
-      await onDecksChanged()
+        setSelectedDeck(updatedDeck)
+        ;(['default', 'simple', 'spaced'] as StudyMode[]).forEach(m => {
+            const key = modeKey(selectedDeck.id, m)
+            if (modeStateRef.current[key]) {
+            modeStateRef.current[key].queue = modeStateRef.current[key].queue.map(
+                (c: any) => c.id === card.id ? updatedCard : c
+            )
+            }
+        })
+        setModeStateVersion(v => v + 1)
+        await onDecksChanged()
+        }
+        setShowEditCardModal(false)
     }
-    setShowEditCardModal(false)
-  }
 
 
-  const handleDeleteCard = async () => {
-    if (!selectedDeck) return
-    const card = queue[currentIndex]
-    await supabase.from('flashcards').delete().eq('id', card.id)
-    const updatedDeck = {
-        ...selectedDeck,
-        flashcards: selectedDeck.flashcards.filter((c: any) => c.id !== card.id)
+    const handleDeleteCard = async () => {
+        if (!selectedDeck) return
+        const card = queue[currentIndex]
+        await supabase.from('flashcards').delete().eq('id', card.id)
+        const updatedDeck = {
+            ...selectedDeck,
+            flashcards: selectedDeck.flashcards.filter((c: any) => c.id !== card.id)
+        }
+        setSelectedDeck(updatedDeck)
+        ;(['default', 'simple', 'spaced'] as StudyMode[]).forEach(m => {
+            const key = modeKey(selectedDeck.id, m)
+            delete modeStateRef.current[key]
+            initModeStateIfNeeded(updatedDeck, m)
+        })
+        setModeStateVersion(v => v + 1)
+        await onDecksChanged()
     }
-    setSelectedDeck(updatedDeck)
-    ;(['default', 'simple', 'spaced'] as StudyMode[]).forEach(m => {
-        const key = modeKey(selectedDeck.id, m)
-        delete modeStateRef.current[key]
-        initModeStateIfNeeded(updatedDeck, m)
-    })
-    setModeStateVersion(v => v + 1)
-    await onDecksChanged()
+
+
+    const handleSearch = (q: string) => {
+        setSearchQuery(q)
+        if (!q.trim()) { setSearchResult(null); return }
+        const idx = queue.findIndex(c =>
+            c.question.toLowerCase().includes(q.toLowerCase()) ||
+            c.answer.toLowerCase().includes(q.toLowerCase())
+        )
+        setSearchResult(idx)
+        if (idx !== -1) scrollTo(idx)
     }
 
   const sm2 = (card: any, score: number) => {
@@ -386,12 +401,15 @@ const Flashcards = ({ decks, session, selectedSystem, onDecksChanged }) => {
           </div>
           <div className={styles.headingWrapper}>
             <div className={styles.heading}>
-              <p className={styles.deckTitle}>{selectedDeck.name}</p>
-              <span className={styles.cardCounter}>0 / 0</span>
+                <p className={styles.deckTitle}>{selectedDeck.name}</p>
+                <span className={styles.cardCounter}>{currentIndex + 1} / {cards.length}</span>
             </div>
-            <ModeBar />
-            <button className={styles.addLabel} onClick={() => setShowAddCardModal(true)}>+ add card</button>
-          </div>
+            <div className={styles.headingSidebar}>
+                <ModeBar />
+                <button className={styles.addLabel} onClick={() => setShowAddCardModal(true)}>+ add card</button>
+            </div>
+        </div>
+
           <div className={styles.doneState}>
             <p className={styles.doneTitle}>deck complete!</p>
             <p className={styles.doneDesc}>you got through all the cards</p>
@@ -413,8 +431,23 @@ const Flashcards = ({ decks, session, selectedSystem, onDecksChanged }) => {
             <p className={styles.deckTitle}>{selectedDeck.name}</p>
             <span className={styles.cardCounter}>{currentIndex + 1} / {cards.length}</span>
           </div>
+          <div className={styles.headingSidebar}>
           <ModeBar />
           <button className={styles.addLabel} onClick={() => setShowAddCardModal(true)}>+ add card</button>
+          </div>
+        </div>
+        <div className={styles.searchRow}>
+                <input
+                    className={styles.searchInput}
+                    placeholder="search cards..."
+                    value={searchQuery}
+                    onChange={e => handleSearch(e.target.value)}
+                />
+                {searchQuery && (
+                    <span className={styles.searchMeta}>
+                    {searchResult === -1 ? 'no match' : `card ${searchResult + 1}`}
+                    </span>
+                )}
         </div>
         <div className={styles.carouselWrapper}>
           <button className={styles.carouselArrow} onClick={() => moveBy(-1)} disabled={currentIndex === 0}>‹</button>
