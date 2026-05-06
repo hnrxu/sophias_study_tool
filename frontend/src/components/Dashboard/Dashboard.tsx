@@ -453,7 +453,14 @@ const Dashboard = ({session}) => {
                                 {response && <div className={styles.msgAssistant}>{response}</div>}
                             </div>
                         )}
-                        {mode === 'flashcards' && <Flashcards decks={decks} />}
+                        {mode === 'flashcards' && (
+                            <Flashcards
+                                decks={decks}
+                                session={session}
+                                selectedSystem={selectedSystem}
+                                onDecksChanged={() => getDecks(selectedSystem.id)}
+                            />
+                            )}
                         {mode === 'audio notes' && (
                             <Audios
                                 audioFiles={audioFiles}
